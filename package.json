@@ -1,0 +1,10 @@
+{
+  "name": "mochimo-haiku-game",
+  "version": "0.1.0",
+  "description": "The Verse Keepers - a haiku game on the Mochimo post-quantum blockchain",
+  "private": true,
+  "scripts": {
+    "test": "node codec/haiku.test.js"
+  },
+  "license": "MIT"
+}
