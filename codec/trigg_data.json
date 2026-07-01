@@ -1,0 +1,1252 @@
+{
+ "source": "mochimodev/mochimo src/trigg.c (master)",
+ "features": {
+  "F_ING": 1,
+  "F_INF": 2,
+  "F_MOTION": 4,
+  "F_NS": 8,
+  "F_NPL": 16,
+  "F_N": 24,
+  "F_MASS": 32,
+  "F_AMB": 64,
+  "F_TIMED": 128,
+  "F_TIMEY": 256,
+  "F_TIME": 384,
+  "F_AT": 512,
+  "F_ON": 1024,
+  "F_IN": 2048,
+  "F_LOC": 3584,
+  "F_NOUN": 4024,
+  "F_PREP": 4096,
+  "F_ADJ": 8192,
+  "F_OP": 16384,
+  "F_DETS": 32768,
+  "F_DETPL": 65536,
+  "F_XLIT": 131072,
+  "S_NL": 131073,
+  "S_CO": 131074,
+  "S_MD": 131075,
+  "S_LIKE": 131076,
+  "S_A": 131077,
+  "S_THE": 131078,
+  "S_OF": 131079,
+  "S_NO": 131080,
+  "S_S": 131081,
+  "S_AFTER": 131082,
+  "S_BEFORE": 131083,
+  "S_AT": 131084,
+  "S_IN": 131085,
+  "S_ON": 131086,
+  "S_UNDER": 131087,
+  "S_ABOVE": 131088,
+  "S_BELOW": 131089
+ },
+ "dict": [
+  {
+   "tok": "NIL",
+   "fe": 0
+  },
+  {
+   "tok": "\n",
+   "fe": 16384
+  },
+  {
+   "tok": "\b:",
+   "fe": 16384
+  },
+  {
+   "tok": "\b--",
+   "fe": 16384
+  },
+  {
+   "tok": "like",
+   "fe": 16384
+  },
+  {
+   "tok": "a",
+   "fe": 16384
+  },
+  {
+   "tok": "the",
+   "fe": 16384
+  },
+  {
+   "tok": "of",
+   "fe": 16384
+  },
+  {
+   "tok": "no",
+   "fe": 16384
+  },
+  {
+   "tok": "\bs",
+   "fe": 16384
+  },
+  {
+   "tok": "after",
+   "fe": 16384
+  },
+  {
+   "tok": "before",
+   "fe": 16384
+  },
+  {
+   "tok": "at",
+   "fe": 4096
+  },
+  {
+   "tok": "in",
+   "fe": 4096
+  },
+  {
+   "tok": "on",
+   "fe": 4096
+  },
+  {
+   "tok": "under",
+   "fe": 4096
+  },
+  {
+   "tok": "above",
+   "fe": 4096
+  },
+  {
+   "tok": "below",
+   "fe": 4096
+  },
+  {
+   "tok": "arriving",
+   "fe": 5
+  },
+  {
+   "tok": "departing",
+   "fe": 5
+  },
+  {
+   "tok": "going",
+   "fe": 5
+  },
+  {
+   "tok": "coming",
+   "fe": 5
+  },
+  {
+   "tok": "creeping",
+   "fe": 5
+  },
+  {
+   "tok": "dancing",
+   "fe": 5
+  },
+  {
+   "tok": "riding",
+   "fe": 5
+  },
+  {
+   "tok": "strutting",
+   "fe": 5
+  },
+  {
+   "tok": "leaping",
+   "fe": 5
+  },
+  {
+   "tok": "leaving",
+   "fe": 5
+  },
+  {
+   "tok": "entering",
+   "fe": 5
+  },
+  {
+   "tok": "drifting",
+   "fe": 5
+  },
+  {
+   "tok": "returning",
+   "fe": 5
+  },
+  {
+   "tok": "rising",
+   "fe": 5
+  },
+  {
+   "tok": "falling",
+   "fe": 5
+  },
+  {
+   "tok": "rushing",
+   "fe": 5
+  },
+  {
+   "tok": "soaring",
+   "fe": 5
+  },
+  {
+   "tok": "travelling",
+   "fe": 5
+  },
+  {
+   "tok": "turning",
+   "fe": 5
+  },
+  {
+   "tok": "singing",
+   "fe": 5
+  },
+  {
+   "tok": "walking",
+   "fe": 5
+  },
+  {
+   "tok": "crying",
+   "fe": 1
+  },
+  {
+   "tok": "weeping",
+   "fe": 1
+  },
+  {
+   "tok": "lingering",
+   "fe": 1
+  },
+  {
+   "tok": "pausing",
+   "fe": 1
+  },
+  {
+   "tok": "shining",
+   "fe": 1
+  },
+  {
+   "tok": "fall",
+   "fe": 6
+  },
+  {
+   "tok": "flow",
+   "fe": 6
+  },
+  {
+   "tok": "wander",
+   "fe": 6
+  },
+  {
+   "tok": "disappear",
+   "fe": 6
+  },
+  {
+   "tok": "wait",
+   "fe": 2
+  },
+  {
+   "tok": "bloom",
+   "fe": 2
+  },
+  {
+   "tok": "doze",
+   "fe": 2
+  },
+  {
+   "tok": "dream",
+   "fe": 2
+  },
+  {
+   "tok": "laugh",
+   "fe": 2
+  },
+  {
+   "tok": "meditate",
+   "fe": 2
+  },
+  {
+   "tok": "listen",
+   "fe": 2
+  },
+  {
+   "tok": "sing",
+   "fe": 2
+  },
+  {
+   "tok": "decay",
+   "fe": 2
+  },
+  {
+   "tok": "cling",
+   "fe": 2
+  },
+  {
+   "tok": "grow",
+   "fe": 2
+  },
+  {
+   "tok": "forget",
+   "fe": 2
+  },
+  {
+   "tok": "remain",
+   "fe": 2
+  },
+  {
+   "tok": "arid",
+   "fe": 8192
+  },
+  {
+   "tok": "abandoned",
+   "fe": 8192
+  },
+  {
+   "tok": "aged",
+   "fe": 8192
+  },
+  {
+   "tok": "ancient",
+   "fe": 8192
+  },
+  {
+   "tok": "full",
+   "fe": 8192
+  },
+  {
+   "tok": "glorious",
+   "fe": 8192
+  },
+  {
+   "tok": "good",
+   "fe": 8192
+  },
+  {
+   "tok": "beautiful",
+   "fe": 8192
+  },
+  {
+   "tok": "first",
+   "fe": 8192
+  },
+  {
+   "tok": "last",
+   "fe": 8192
+  },
+  {
+   "tok": "forsaken",
+   "fe": 8192
+  },
+  {
+   "tok": "sad",
+   "fe": 8192
+  },
+  {
+   "tok": "mandarin",
+   "fe": 8192
+  },
+  {
+   "tok": "naked",
+   "fe": 8192
+  },
+  {
+   "tok": "nameless",
+   "fe": 8192
+  },
+  {
+   "tok": "old",
+   "fe": 8192
+  },
+  {
+   "tok": "quiet",
+   "fe": 8256
+  },
+  {
+   "tok": "peaceful",
+   "fe": 8192
+  },
+  {
+   "tok": "still",
+   "fe": 8192
+  },
+  {
+   "tok": "tranquil",
+   "fe": 8192
+  },
+  {
+   "tok": "bare",
+   "fe": 8192
+  },
+  {
+   "tok": "evening",
+   "fe": 8320
+  },
+  {
+   "tok": "morning",
+   "fe": 8320
+  },
+  {
+   "tok": "afternoon",
+   "fe": 8320
+  },
+  {
+   "tok": "spring",
+   "fe": 8448
+  },
+  {
+   "tok": "summer",
+   "fe": 8448
+  },
+  {
+   "tok": "autumn",
+   "fe": 8448
+  },
+  {
+   "tok": "winter",
+   "fe": 8448
+  },
+  {
+   "tok": "broken",
+   "fe": 8192
+  },
+  {
+   "tok": "thick",
+   "fe": 8192
+  },
+  {
+   "tok": "thin",
+   "fe": 8192
+  },
+  {
+   "tok": "little",
+   "fe": 8192
+  },
+  {
+   "tok": "big",
+   "fe": 8192
+  },
+  {
+   "tok": "parched",
+   "fe": 8256
+  },
+  {
+   "tok": "withered",
+   "fe": 8256
+  },
+  {
+   "tok": "worn",
+   "fe": 8256
+  },
+  {
+   "tok": "soft",
+   "fe": 8192
+  },
+  {
+   "tok": "bitter",
+   "fe": 8192
+  },
+  {
+   "tok": "bright",
+   "fe": 8192
+  },
+  {
+   "tok": "brilliant",
+   "fe": 8192
+  },
+  {
+   "tok": "cold",
+   "fe": 8192
+  },
+  {
+   "tok": "cool",
+   "fe": 8192
+  },
+  {
+   "tok": "crimson",
+   "fe": 8192
+  },
+  {
+   "tok": "dark",
+   "fe": 8192
+  },
+  {
+   "tok": "frozen",
+   "fe": 8192
+  },
+  {
+   "tok": "grey",
+   "fe": 8192
+  },
+  {
+   "tok": "hard",
+   "fe": 8192
+  },
+  {
+   "tok": "hot",
+   "fe": 8192
+  },
+  {
+   "tok": "scarlet",
+   "fe": 8192
+  },
+  {
+   "tok": "shallow",
+   "fe": 8192
+  },
+  {
+   "tok": "sharp",
+   "fe": 8192
+  },
+  {
+   "tok": "warm",
+   "fe": 8192
+  },
+  {
+   "tok": "close",
+   "fe": 8192
+  },
+  {
+   "tok": "calm",
+   "fe": 8192
+  },
+  {
+   "tok": "cruel",
+   "fe": 8192
+  },
+  {
+   "tok": "drowned",
+   "fe": 8192
+  },
+  {
+   "tok": "dull",
+   "fe": 8192
+  },
+  {
+   "tok": "dead",
+   "fe": 8192
+  },
+  {
+   "tok": "sick",
+   "fe": 8192
+  },
+  {
+   "tok": "deep",
+   "fe": 8192
+  },
+  {
+   "tok": "fast",
+   "fe": 8192
+  },
+  {
+   "tok": "fleeting",
+   "fe": 8192
+  },
+  {
+   "tok": "fragrant",
+   "fe": 8192
+  },
+  {
+   "tok": "fresh",
+   "fe": 8192
+  },
+  {
+   "tok": "loud",
+   "fe": 8192
+  },
+  {
+   "tok": "moonlit",
+   "fe": 8256
+  },
+  {
+   "tok": "sacred",
+   "fe": 8192
+  },
+  {
+   "tok": "slow",
+   "fe": 8192
+  },
+  {
+   "tok": "traveller",
+   "fe": 8
+  },
+  {
+   "tok": "poet",
+   "fe": 8
+  },
+  {
+   "tok": "beggar",
+   "fe": 8
+  },
+  {
+   "tok": "monk",
+   "fe": 8
+  },
+  {
+   "tok": "warrior",
+   "fe": 8
+  },
+  {
+   "tok": "wife",
+   "fe": 8
+  },
+  {
+   "tok": "courtesan",
+   "fe": 8
+  },
+  {
+   "tok": "dancer",
+   "fe": 8
+  },
+  {
+   "tok": "daemon",
+   "fe": 8
+  },
+  {
+   "tok": "frog",
+   "fe": 8
+  },
+  {
+   "tok": "hawks",
+   "fe": 16
+  },
+  {
+   "tok": "larks",
+   "fe": 16
+  },
+  {
+   "tok": "cranes",
+   "fe": 16
+  },
+  {
+   "tok": "crows",
+   "fe": 16
+  },
+  {
+   "tok": "ducks",
+   "fe": 16
+  },
+  {
+   "tok": "birds",
+   "fe": 16
+  },
+  {
+   "tok": "skylark",
+   "fe": 8
+  },
+  {
+   "tok": "sparrows",
+   "fe": 16
+  },
+  {
+   "tok": "minnows",
+   "fe": 16
+  },
+  {
+   "tok": "snakes",
+   "fe": 16
+  },
+  {
+   "tok": "dog",
+   "fe": 8
+  },
+  {
+   "tok": "monkeys",
+   "fe": 16
+  },
+  {
+   "tok": "cats",
+   "fe": 16
+  },
+  {
+   "tok": "cuckoos",
+   "fe": 16
+  },
+  {
+   "tok": "mice",
+   "fe": 16
+  },
+  {
+   "tok": "dragonfly",
+   "fe": 8
+  },
+  {
+   "tok": "butterfly",
+   "fe": 8
+  },
+  {
+   "tok": "firefly",
+   "fe": 8
+  },
+  {
+   "tok": "grasshopper",
+   "fe": 8
+  },
+  {
+   "tok": "mosquitos",
+   "fe": 16
+  },
+  {
+   "tok": "trees",
+   "fe": 2576
+  },
+  {
+   "tok": "roses",
+   "fe": 16
+  },
+  {
+   "tok": "cherries",
+   "fe": 16
+  },
+  {
+   "tok": "flowers",
+   "fe": 16
+  },
+  {
+   "tok": "lotuses",
+   "fe": 16
+  },
+  {
+   "tok": "plums",
+   "fe": 16
+  },
+  {
+   "tok": "poppies",
+   "fe": 16
+  },
+  {
+   "tok": "violets",
+   "fe": 16
+  },
+  {
+   "tok": "oaks",
+   "fe": 528
+  },
+  {
+   "tok": "pines",
+   "fe": 528
+  },
+  {
+   "tok": "chestnuts",
+   "fe": 16
+  },
+  {
+   "tok": "clovers",
+   "fe": 16
+  },
+  {
+   "tok": "leaves",
+   "fe": 16
+  },
+  {
+   "tok": "petals",
+   "fe": 16
+  },
+  {
+   "tok": "thorns",
+   "fe": 16
+  },
+  {
+   "tok": "blossoms",
+   "fe": 16
+  },
+  {
+   "tok": "vines",
+   "fe": 16
+  },
+  {
+   "tok": "willows",
+   "fe": 16
+  },
+  {
+   "tok": "mountain",
+   "fe": 1544
+  },
+  {
+   "tok": "moor",
+   "fe": 3592
+  },
+  {
+   "tok": "sea",
+   "fe": 3592
+  },
+  {
+   "tok": "shadow",
+   "fe": 2056
+  },
+  {
+   "tok": "skies",
+   "fe": 2064
+  },
+  {
+   "tok": "moon",
+   "fe": 8
+  },
+  {
+   "tok": "star",
+   "fe": 8
+  },
+  {
+   "tok": "stone",
+   "fe": 8
+  },
+  {
+   "tok": "cloud",
+   "fe": 8
+  },
+  {
+   "tok": "bridge",
+   "fe": 1544
+  },
+  {
+   "tok": "gate",
+   "fe": 520
+  },
+  {
+   "tok": "temple",
+   "fe": 2568
+  },
+  {
+   "tok": "hovel",
+   "fe": 2568
+  },
+  {
+   "tok": "forest",
+   "fe": 2568
+  },
+  {
+   "tok": "grave",
+   "fe": 3592
+  },
+  {
+   "tok": "stream",
+   "fe": 3592
+  },
+  {
+   "tok": "pond",
+   "fe": 3592
+  },
+  {
+   "tok": "island",
+   "fe": 1544
+  },
+  {
+   "tok": "bell",
+   "fe": 8
+  },
+  {
+   "tok": "boat",
+   "fe": 3080
+  },
+  {
+   "tok": "sailboat",
+   "fe": 3080
+  },
+  {
+   "tok": "bon fire",
+   "fe": 520
+  },
+  {
+   "tok": "straw mat",
+   "fe": 1032
+  },
+  {
+   "tok": "cup",
+   "fe": 2056
+  },
+  {
+   "tok": "nest",
+   "fe": 2056
+  },
+  {
+   "tok": "sun",
+   "fe": 2056
+  },
+  {
+   "tok": "village",
+   "fe": 2056
+  },
+  {
+   "tok": "tomb",
+   "fe": 2568
+  },
+  {
+   "tok": "raindrop",
+   "fe": 2056
+  },
+  {
+   "tok": "wave",
+   "fe": 2056
+  },
+  {
+   "tok": "wind",
+   "fe": 2056
+  },
+  {
+   "tok": "tide",
+   "fe": 2568
+  },
+  {
+   "tok": "fan",
+   "fe": 8
+  },
+  {
+   "tok": "hat",
+   "fe": 8
+  },
+  {
+   "tok": "sandal",
+   "fe": 8
+  },
+  {
+   "tok": "shroud",
+   "fe": 8
+  },
+  {
+   "tok": "pole",
+   "fe": 8
+  },
+  {
+   "tok": "water",
+   "fe": 3168
+  },
+  {
+   "tok": "air",
+   "fe": 3168
+  },
+  {
+   "tok": "mud",
+   "fe": 3168
+  },
+  {
+   "tok": "rain",
+   "fe": 2144
+  },
+  {
+   "tok": "thunder",
+   "fe": 2144
+  },
+  {
+   "tok": "ice",
+   "fe": 3168
+  },
+  {
+   "tok": "snow",
+   "fe": 3168
+  },
+  {
+   "tok": "salt",
+   "fe": 3104
+  },
+  {
+   "tok": "hail",
+   "fe": 2144
+  },
+  {
+   "tok": "mist",
+   "fe": 2144
+  },
+  {
+   "tok": "dew",
+   "fe": 2144
+  },
+  {
+   "tok": "foam",
+   "fe": 2144
+  },
+  {
+   "tok": "frost",
+   "fe": 2144
+  },
+  {
+   "tok": "smoke",
+   "fe": 2144
+  },
+  {
+   "tok": "twilight",
+   "fe": 2656
+  },
+  {
+   "tok": "earth",
+   "fe": 3104
+  },
+  {
+   "tok": "grass",
+   "fe": 3104
+  },
+  {
+   "tok": "bamboo",
+   "fe": 32
+  },
+  {
+   "tok": "gold",
+   "fe": 32
+  },
+  {
+   "tok": "grain",
+   "fe": 32
+  },
+  {
+   "tok": "rice",
+   "fe": 32
+  },
+  {
+   "tok": "tea",
+   "fe": 2080
+  },
+  {
+   "tok": "light",
+   "fe": 2144
+  },
+  {
+   "tok": "darkness",
+   "fe": 2144
+  },
+  {
+   "tok": "firelight",
+   "fe": 2144
+  },
+  {
+   "tok": "sunlight",
+   "fe": 2144
+  },
+  {
+   "tok": "sunshine",
+   "fe": 2144
+  },
+  {
+   "tok": "journey",
+   "fe": 1032
+  },
+  {
+   "tok": "serenity",
+   "fe": 32
+  },
+  {
+   "tok": "dusk",
+   "fe": 128
+  },
+  {
+   "tok": "glow",
+   "fe": 8
+  },
+  {
+   "tok": "scent",
+   "fe": 8
+  },
+  {
+   "tok": "sound",
+   "fe": 8
+  },
+  {
+   "tok": "silence",
+   "fe": 8
+  },
+  {
+   "tok": "voice",
+   "fe": 8
+  },
+  {
+   "tok": "day",
+   "fe": 136
+  },
+  {
+   "tok": "night",
+   "fe": 136
+  },
+  {
+   "tok": "sunrise",
+   "fe": 136
+  },
+  {
+   "tok": "sunset",
+   "fe": 136
+  },
+  {
+   "tok": "midnight",
+   "fe": 136
+  },
+  {
+   "tok": "equinox",
+   "fe": 264
+  },
+  {
+   "tok": "noon",
+   "fe": 136
+  }
+ ],
+ "frames": [
+  [
+   4096,
+   8192,
+   32,
+   131073,
+   16,
+   131073,
+   3,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   4096,
+   32,
+   131073,
+   8192,
+   16,
+   131073,
+   3,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   4096,
+   128,
+   131073,
+   8192,
+   16,
+   131073,
+   3,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   4096,
+   128,
+   131073,
+   131077,
+   8,
+   131073,
+   1,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   384,
+   64,
+   131073,
+   4096,
+   131077,
+   8192,
+   8,
+   131075,
+   131073,
+   8193,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   384,
+   64,
+   131073,
+   8192,
+   32,
+   131073,
+   1,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   384,
+   32,
+   131073,
+   2,
+   131081,
+   131074,
+   131073,
+   64,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   1,
+   4096,
+   131077,
+   8192,
+   8,
+   131073,
+   32,
+   1,
+   131075,
+   131073,
+   131077,
+   8192,
+   8,
+   0,
+   0,
+   0
+  ],
+  [
+   1,
+   4096,
+   384,
+   32,
+   131073,
+   32,
+   1,
+   131075,
+   131073,
+   131077,
+   8192,
+   8,
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   131077,
+   8,
+   131073,
+   4096,
+   128,
+   32,
+   131075,
+   131073,
+   8192,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ]
+ ]
+}
