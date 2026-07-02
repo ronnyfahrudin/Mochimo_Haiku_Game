@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" id="html-root">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,12 +14,13 @@
 
 <header>
   <img class="mark" src="assets/mochimo-logo.jpg" alt="Mochimo" width="34" height="34">
-  <div class="title">the haiku keepers<small>a mochimo haiku game</small></div>
+  <div class="title">the haiku keepers<small data-i18n="tagline">a mochimo haiku game</small></div>
   <nav aria-label="views">
-    <button data-view="home" aria-current="true">now</button>
-    <button data-view="forge">forge</button>
-    <button data-view="anthology">anthology</button>
+    <button data-view="home" aria-current="true" data-i18n="nav_now">now</button>
+    <button data-view="forge" data-i18n="nav_forge">forge</button>
+    <button data-view="anthology" data-i18n="nav_anthology">anthology</button>
   </nav>
+  <select id="lang-sel" aria-label="Language"></select>
 </header>
 
 <!-- ============ NOW ============ -->
@@ -34,7 +35,7 @@
       </div>
     </div>
 
-    <p class="block-label" id="block-label">listening to the chain…</p>
+    <p class="block-label" id="block-label" data-i18n="listening">listening to the chain…</p>
     <div class="washi" id="washi">
       <p class="poem-text" id="poem-text"><span class="caret">▌</span></p>
     </div>
@@ -44,15 +45,13 @@
 
 <!-- ============ FORGE ============ -->
 <section id="view-forge" hidden>
-  <h2>The Haiku Forge</h2>
-  <p class="sub">Compose from the network's own 256 words. The grammar you must
-     satisfy is the one the chain itself enforces — a finished poem is a valid
-     Mochimo mining nonce.</p>
+  <h2 data-i18n="forge_title">The Haiku Forge</h2>
+  <p class="sub" data-i18n="forge_sub"></p>
 
   <div class="panel">
     <div class="frame-tabs">
-      <button id="tab-a" aria-current="true">haiku I</button>
-      <button id="tab-b">haiku II</button>
+      <button id="tab-a" aria-current="true" data-i18n="tab_a">haiku I</button>
+      <button id="tab-b" data-i18n="tab_b">haiku II</button>
     </div>
     <div class="compose-strip" id="compose-strip">
       <span class="hint">tap words below — tap a placed word to remove it and everything after</span>
@@ -62,8 +61,8 @@
     <div class="bank" id="bank"></div>
 
     <div class="forge-actions">
-      <button class="btn" id="submit-btn" disabled>Submit to the anthology</button>
-      <button class="btn ghost" id="clear-btn">Clear</button>
+      <button class="btn" id="submit-btn" disabled data-i18n="submit">Submit to the anthology</button>
+      <button class="btn ghost" id="clear-btn" data-i18n="clear">Clear</button>
     </div>
     <p class="badge" id="nonce-badge"></p>
   </div>
@@ -71,38 +70,35 @@
 
 <!-- ============ ANTHOLOGY ============ -->
 <section id="view-anthology" hidden>
-  <h2>Anthology of the Aeon</h2>
+  <h2 data-i18n="anth_title">Anthology of the Aeon</h2>
   <p class="sub" id="anth-sub">Poems of this aeon. Voting closes at Neogenesis.</p>
   <div class="panel" id="anthology-list"><p class="note">loading…</p></div>
 </section>
 
 <footer>
-  open source · <a href="https://github.com/ronnyfahrudin/Mochimo_Haiku_Game">github</a> ·
-  running on the <a href="https://mochimo.org">mochimo</a> post-quantum chain
+  <span data-i18n="foot_open">open source</span> · <a href="https://github.com/ronnyfahrudin/Mochimo_Haiku_Game">github</a> ·
+  <span id="foot-chain"></span>
   · <span id="who"></span>
 </footer>
 </div>
 
 <!-- ============ LOGIN ============ -->
 <dialog id="login-dlg">
-  <h3>Sign in with your Mochimo tag</h3>
-  <p class="note">Your account tag is the 20-byte number that never changes
-     (shown in the Mochimo Wallet). No signature needed — WOTS+ keys are
-     one-time, so ownership is proven with a tiny deposit instead.</p>
+  <h3 data-i18n="login_title">Sign in with your Mochimo tag</h3>
+  <p class="note" data-i18n="login_note"></p>
   <input type="text" id="tag-input" placeholder="0x… (40 hex characters)" spellcheck="false">
   <div id="memo-step" hidden>
-    <p class="note" style="margin-top:12px">Send a micro-transaction (any amount)
-       to the game address with this exact reference/memo:</p>
+    <p class="note" style="margin-top:12px" data-i18n="memo_note1"></p>
     <div class="memo-code" id="memo-code"></div>
-    <p class="note">Then press “I sent it”. Verification is only required for voting
-       and claiming rewards — you can forge poems right away.</p>
+    <p class="note" data-i18n="memo_note2"></p>
   </div>
   <div class="forge-actions">
-    <button class="btn" id="login-next">Continue</button>
-    <button class="btn ghost" id="login-close">Close</button>
+    <button class="btn" id="login-next" data-i18n="continue">Continue</button>
+    <button class="btn ghost" id="login-close" data-i18n="close">Close</button>
   </div>
 </dialog>
 
+<script src="i18n.js"></script>
 <script src="codec-client.js"></script>
 <script src="app.js"></script>
 <script>

@@ -135,6 +135,10 @@ block, counting toward Neogenesis and tinted by the season.
   its 32-byte nonce: *"this poem is a structurally valid mining nonce"*
 - **anthology** — the aeon's poems, community voting, memo-verified identities
 
+The interface is localized in **English, Bahasa Indonesia, 简体中文, and 日本語**
+(switcher in the header, remembered per device). The 256-word haiku vocabulary
+itself stays in English — it is the network's consensus nonce dictionary.
+
 ## Wallet Login & Rewards (design)
 
 Mochimo uses WOTS+ **one-time** signatures — signing a login challenge would burn a key.
