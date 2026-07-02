@@ -153,6 +153,7 @@ const routes = {
 const MIME = {
   '.html': 'text/html', '.css': 'text/css', '.js': 'text/javascript',
   '.svg': 'image/svg+xml', '.webmanifest': 'application/manifest+json', '.json': 'application/json',
+  '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.png': 'image/png',
 };
 
 function serveStatic(req, res, pathname) {
