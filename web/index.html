@@ -25,10 +25,18 @@
 
 <!-- ============ NOW ============ -->
 <section id="view-home">
+  <div class="welcome" id="welcome" hidden>
+    <h3 data-i18n="welcome_title"></h3>
+    <p data-i18n="welcome_body"></p>
+    <button class="btn" id="welcome-cta" data-i18n="welcome_cta"></button>
+  </div>
+  <p class="greeting" id="greeting"></p>
   <div class="home-hero">
+    <p class="greeting" id="greeting"></p>
     <div class="ring-holder" title="256 blocks to each Neogenesis">
       <svg id="aeon-ring" viewBox="0 0 208 208" role="img" aria-label="Aeon progress ring"></svg>
       <div class="ring-center">
+        <div class="season-glyph" id="season-glyph" aria-hidden="true"></div>
         <div class="aeon-num" id="aeon-num">aeon —</div>
         <div class="season-name" id="season-name">…</div>
         <div class="to-neo" id="to-neo"></div>
@@ -40,6 +48,7 @@
       <p class="poem-text" id="poem-text"><span class="caret">▌</span></p>
     </div>
     <p class="nonce-line" id="nonce-line"></p>
+    <p class="poems-count" id="poems-count"></p>
   </div>
 </section>
 
@@ -53,8 +62,22 @@
       <button id="tab-a" aria-current="true" data-i18n="tab_a">haiku I</button>
       <button id="tab-b" data-i18n="tab_b">haiku II</button>
     </div>
+    <div class="washi mini" id="forge-preview" hidden>
+      <p class="mini-label" id="preview-label"></p>
+      <p class="poem-text" id="forge-poem"></p>
+    </div>
     <div class="compose-strip" id="compose-strip">
       <span class="hint">tap words below — tap a placed word to remove it and everything after</span>
+    </div>
+
+    <p class="bank-label" data-i18n="preview_label"></p>
+    <div class="washi preview" id="preview-washi">
+      <p class="poem-text" id="preview-poem"></p>
+    </div>
+
+    <div class="washi mini" id="forge-preview">
+      <p class="preview-label" data-i18n="preview_label">your poem so far</p>
+      <p class="poem-text" id="forge-poem"></p>
     </div>
 
     <p class="bank-label" id="bank-label">words that may come next</p>
@@ -62,6 +85,7 @@
 
     <div class="forge-actions">
       <button class="btn" id="submit-btn" disabled data-i18n="submit">Submit to the anthology</button>
+      <button class="btn ghost" id="undo-btn" data-i18n="undo">Undo</button>
       <button class="btn ghost" id="clear-btn" data-i18n="clear">Clear</button>
     </div>
     <p class="badge" id="nonce-badge"></p>
@@ -86,10 +110,14 @@
 <dialog id="login-dlg">
   <h3 data-i18n="login_title">Sign in with your Mochimo tag</h3>
   <p class="note" data-i18n="login_note"></p>
+  <p class="step-label" id="step-label" data-i18n="login_step1"></p>
   <input type="text" id="tag-input" placeholder="0x… (40 hex characters)" spellcheck="false">
   <div id="memo-step" hidden>
     <p class="note" style="margin-top:12px" data-i18n="memo_note1"></p>
-    <div class="memo-code" id="memo-code"></div>
+    <div class="memo-row">
+      <div class="memo-code" id="memo-code"></div>
+      <button class="btn ghost" id="copy-memo" data-i18n="copy"></button>
+    </div>
     <p class="note" data-i18n="memo_note2"></p>
   </div>
   <div class="forge-actions">

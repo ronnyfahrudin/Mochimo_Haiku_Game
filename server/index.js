@@ -86,7 +86,8 @@ function send(res, status, obj) {
 const routes = {
   'GET /api/grammar': async () => {
     const data = require('../codec/trigg_data.json');
-    return { dict: data.dict, frames: data.frames, features: { F_XLIT: data.features.F_XLIT } };
+    return { dict: data.dict, frames: data.frames,
+      features: { F_XLIT: data.features.F_XLIT, F_ADJ: data.features.F_ADJ, F_NS: data.features.F_NS } };
   },
 
   'GET /api/state': async () => {
@@ -95,6 +96,7 @@ const routes = {
     return {
       network: mesh.MOCK ? 'mock' : 'mainnet',
       clock: c,
+      poemsThisAeon: game.anthology(c.aeon).length,
       haikuOfTheBlock: latest ? { block: latest.bnum, text: latest.haiku, nonce: latest.nonce_hex } : null,
     };
   },

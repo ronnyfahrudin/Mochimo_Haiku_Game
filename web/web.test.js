@@ -144,6 +144,21 @@ console.log('2b. i18n locales');
   });
 }
 
+console.log('2c. humanize');
+{
+  const i18n = require('./i18n');
+  const need = ['greet_morning','greet_night','preview_ph','preview_label','just_now','min_ago','hr_ago','day_ago','first_words','celebrate','keeper_generic'];
+  check('humanize keys exist in all locales', () => {
+    for (const code of ['en','id','zh','ja']) for (const k of need) assert(i18n.T[code][k], code + '.' + k);
+  });
+  // pen-name building blocks: dictionary has usable adjectives and nouns
+  const F = data.features;
+  const adjs = data.dict.filter((e,i) => i>0 && (e.fe & F.F_ADJ) && e.tok.replace(/[\b\n]/g,'').length >= 3);
+  const nouns = data.dict.filter((e,i) => i>0 && !(e.fe & F.F_ADJ) && (e.fe & F.F_NS) && e.tok.replace(/[\b\n]/g,'').length >= 3);
+  check('vocabulary yields adjective + noun pools for pen names', () =>
+    assert(adjs.length >= 10 && nouns.length >= 30, adjs.length + '/' + nouns.length));
+}
+
 console.log('3. serving: static shell + /api/grammar over HTTP');
 (async () => {
   const { server, pollOnce } = require('../server/index');
@@ -162,7 +177,7 @@ console.log('3. serving: static shell + /api/grammar over HTTP');
     assert(css.status === 200 && css.headers.get('content-type').includes('text/css')));
   const g = await (await fetch(base + '/api/grammar')).json();
   check('GET /api/grammar serves dict(256) + frames(10) + F_XLIT', () =>
-    assert(g.dict.length === 256 && g.frames.length === 10 && g.features.F_XLIT > 0));
+    assert(g.dict.length === 256 && g.frames.length === 10 && g.features.F_XLIT > 0 && g.features.F_ADJ > 0 && g.features.F_NS > 0));
   const trav = await fetch(base + '/../server/index.js');
   check('path traversal blocked', () => assert(trav.status === 404));
   const missing = await fetch(base + '/nope.js');
