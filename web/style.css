@@ -52,6 +52,11 @@ nav button {
   padding: 7px 12px; cursor: pointer;
 }
 nav button[aria-current="true"] { color: var(--mint); border-color: var(--line); background: var(--panel); }
+#lang-sel {
+  margin-left: 8px; background: var(--panel); color: var(--faded);
+  border: 1px solid var(--line); border-radius: 6px;
+  font-family: var(--mono); font-size: 12px; padding: 6px 4px; cursor: pointer;
+}
 nav button:focus-visible, button:focus-visible { outline: 2px solid var(--season); outline-offset: 2px; }
 
 /* ---------- home: aeon ring + haiku of the block ---------- */
