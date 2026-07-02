@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#1e2528">
-<title>The Verse Keepers — Mochimo Haiku Game</title>
+<title>The Haiku Keepers — Mochimo Haiku Game</title>
 <link rel="stylesheet" href="style.css">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
@@ -14,7 +14,7 @@
 
 <header>
   <img class="mark" src="assets/mochimo-logo.jpg" alt="Mochimo" width="34" height="34">
-  <div class="title">the verse keepers<small>a mochimo haiku game</small></div>
+  <div class="title">the haiku keepers<small>a mochimo haiku game</small></div>
   <nav aria-label="views">
     <button data-view="home" aria-current="true">now</button>
     <button data-view="forge">forge</button>
@@ -36,7 +36,7 @@
 
     <p class="block-label" id="block-label">listening to the chain…</p>
     <div class="washi" id="washi">
-      <p class="verse" id="verse"><span class="caret">▌</span></p>
+      <p class="poem-text" id="poem-text"><span class="caret">▌</span></p>
     </div>
     <p class="nonce-line" id="nonce-line"></p>
   </div>
@@ -51,8 +51,8 @@
 
   <div class="panel">
     <div class="frame-tabs">
-      <button id="tab-a" aria-current="true">verse I</button>
-      <button id="tab-b">verse II</button>
+      <button id="tab-a" aria-current="true">haiku I</button>
+      <button id="tab-b">haiku II</button>
     </div>
     <div class="compose-strip" id="compose-strip">
       <span class="hint">tap words below — tap a placed word to remove it and everything after</span>

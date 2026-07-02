@@ -1,4 +1,4 @@
-# 🌸 Mochimo Haiku Game — *The Verse Keepers*
+# 🌸 Mochimo Haiku Game — *The Haiku Keepers*
 
 > *In the beginning, there was a single Haiku...*
 
@@ -14,10 +14,10 @@ Built to drive adoption of Mochimo, the first live quantum-resistant cryptocurre
 
 In a near future, quantum computers have shattered the cryptography holding the world's
 ledgers together. One network survives — a chain that does not write its history in
-numbers, but in *verse*. Every ~2 minutes it births a new haiku as proof the world still
+numbers, but in *poetry*. Every ~2 minutes it births a new haiku as proof the world still
 beats. Over a quintillion poems and counting.
 
-Players are **Verse Keepers**: poets of the surviving chain. In the **Haiku Forge**, they
+Players are **Haiku Keepers**: poets of the surviving chain. In the **Haiku Forge**, they
 compose haiku from the very same 256-word semantic dictionary the Mochimo network itself
 uses — meaning every player-forged haiku that passes the Forge **is a structurally valid
 Mochimo mining nonce**, judged by the exact grammar rules in the network's consensus code.
@@ -29,10 +29,10 @@ Time in the game follows the chain itself:
 | 1 block (~2 min)     | One heartbeat; a new *Haiku of the Block* (real, live) |
 | 1 Aeon (256 blocks)  | One season (~6h): anthology closes, rewards paid       |
 | Neogenesis block     | The world reborn; season rotates (4 Aeons ≈ 1 day)     |
-| Pseudoblock          | "The network is silent — no verse this beat"           |
+| Pseudoblock          | "The network is silent — no haiku this beat"           |
 
 Each Aeon, players submit haiku to the **Anthology of the Aeon** and vote for their
-favorites. Top verses earn nanoMochi, paid on mainnet in a **single multi-destination
+favorites. Top poems earn nanoMochi, paid on mainnet in a **single multi-destination
 transaction** (Mochimo supports up to 256 recipients per TX — one payout TX per Aeon,
 with an on-chain memo like `AEON-12345-RANK-001` so every reward is publicly verifiable).
 

@@ -1,5 +1,5 @@
 /**
- * The Verse Keepers — game server.
+ * The Haiku Keepers — game server.
  * Zero-dependency HTTP API + Mesh poller. Run:
  *   node server/index.js               (live, uses https://api.mochimo.org)
  *   MESH_MOCK=1 node server/index.js   (offline mock mode)
@@ -186,7 +186,7 @@ const server = http.createServer(async (req, res) => {
 
 if (require.main === module) {
   server.listen(PORT, () => {
-    console.log(`Verse Keepers server on :${PORT} (${mesh.MOCK ? 'MOCK' : mesh.BASE})`);
+    console.log(`Haiku Keepers server on :${PORT} (${mesh.MOCK ? 'MOCK' : mesh.BASE})`);
     startPolling();
   });
 }

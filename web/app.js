@@ -1,4 +1,4 @@
-/* The Verse Keepers — app logic. Vanilla JS, no build step. */
+/* The Haiku Keepers — app logic. Vanilla JS, no build step. */
 (function () {
 'use strict';
 
@@ -66,12 +66,12 @@ async function refreshState() {
     lastShownBlock = h.block;
     $('block-label').innerHTML = `haiku of block <b>#${h.block}</b>`;
     $('washi').classList.remove('silent');
-    typewrite($('verse'), h.text);
+    typewrite($('poem-text'), h.text);
     $('nonce-line').innerHTML = `nonce <span>${h.nonce}</span>`;
   } else if (!h) {
     $('block-label').textContent = 'waiting for a standard block…';
     $('washi').classList.add('silent');
-    $('verse').textContent = c.isNeogenesis ? 'the world is reborn' : 'the network is silent';
+    $('poem-text').textContent = c.isNeogenesis ? 'the world is reborn' : 'the network is silent';
   }
   if (currentView === 'anthology') loadAnthology();
 }
@@ -151,8 +151,8 @@ function renderForge() {
     bank.appendChild(b);
   }
   $('bank-label').textContent = cur.length === 0
-    ? 'words that may open a verse'
-    : (words.length ? 'words that may come next' : (canEnd ? 'the verse is complete' : ''));
+    ? 'words that may open the haiku'
+    : (words.length ? 'words that may come next' : (canEnd ? 'the haiku is complete' : ''));
 
   // nonce badge + submit availability
   const okA = HaikuClient.isValidFrame(frames.a) && frames.a.length > 0;
@@ -164,7 +164,7 @@ function renderForge() {
     $('submit-btn').disabled = false;
   } else {
     $('nonce-badge').textContent = okA || okB
-      ? 'one verse complete — finish the other to forge the nonce'
+      ? 'one haiku complete — finish the other to forge the nonce'
       : '';
     $('submit-btn').disabled = true;
   }
