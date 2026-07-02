@@ -84,6 +84,11 @@ function send(res, status, obj) {
 }
 
 const routes = {
+  'GET /api/grammar': async () => {
+    const data = require('../codec/trigg_data.json');
+    return { dict: data.dict, frames: data.frames, features: { F_XLIT: data.features.F_XLIT } };
+  },
+
   'GET /api/state': async () => {
     const c = clock(current.blockNumber);
     const latest = game.latestHaikuBlock();
@@ -145,11 +150,32 @@ const routes = {
   },
 };
 
+const MIME = {
+  '.html': 'text/html', '.css': 'text/css', '.js': 'text/javascript',
+  '.svg': 'image/svg+xml', '.webmanifest': 'application/manifest+json', '.json': 'application/json',
+};
+
+function serveStatic(req, res, pathname) {
+  const fs = require('fs');
+  const path = require('path');
+  const webRoot = path.join(__dirname, '..', 'web');
+  let rel = pathname === '/' ? 'index.html' : pathname.slice(1);
+  const file = path.normalize(path.join(webRoot, rel));
+  if (!file.startsWith(webRoot) || !fs.existsSync(file) || !fs.statSync(file).isFile()) {
+    return send(res, 404, { error: 'not found' });
+  }
+  res.writeHead(200, { 'content-type': MIME[path.extname(file)] || 'application/octet-stream' });
+  fs.createReadStream(file).pipe(res);
+}
+
 const server = http.createServer(async (req, res) => {
   if (req.method === 'OPTIONS') return send(res, 204, {});
   const u = new URL(req.url, 'http://x');
   const handler = routes[`${req.method} ${u.pathname}`];
-  if (!handler) return send(res, 404, { error: 'not found' });
+  if (!handler) {
+    if (req.method === 'GET' && !u.pathname.startsWith('/api/')) return serveStatic(req, res, u.pathname);
+    return send(res, 404, { error: 'not found' });
+  }
   try {
     send(res, 200, await handler(req, u.searchParams));
   } catch (e) {

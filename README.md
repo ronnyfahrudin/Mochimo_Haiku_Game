@@ -69,7 +69,7 @@ in both expansion text and grammar verdicts. 1,000 of those vectors ship in this
 regression fixtures.
 
 ```bash
-npm test   # codec suite (18) + server suite (26), fully offline
+npm test   # codec (18) + server (26) + web (13) suites, fully offline
 ```
 
 Example output of the codec on a generated nonce:
@@ -116,6 +116,25 @@ metadata layouts; run `npm run probe` once to confirm it matches your Mesh
 version, and compare the printed haiku against the same block on
 [mochiscan.org](https://mochiscan.org).
 
+
+## The Web App (Milestone 3)
+
+Served by the same zero-dependency server — open `http://localhost:8090` after
+`npm start` (or `npm run start:mock` for an offline demo). Installable as a PWA.
+
+Design: *two worlds on one screen* — the chain speaks in terminal-mint monospace
+on the Mochimo mark's charcoal, while the poetry itself is set like ink on warm
+washi paper. The signature element is the **Aeon Ring**: 256 ticks, one per
+block, counting toward Neogenesis and tinted by the season.
+
+- **now** — live *Haiku of the Block* with a typewriter reveal, the Aeon Ring,
+  season + neogenesis countdown; pseudoblocks render as *"the network is silent"*
+- **forge** — guided composition: at every step the word bank shows only words
+  the consensus grammar allows next (engine cross-checked against the verified
+  codec — soundness and completeness are both tested); a finished poem displays
+  its 32-byte nonce: *"this poem is a structurally valid mining nonce"*
+- **anthology** — the aeon's poems, community voting, memo-verified identities
+
 ## Wallet Login & Rewards (design)
 
 Mochimo uses WOTS+ **one-time** signatures — signing a login challenge would burn a key.
@@ -132,7 +151,7 @@ So login is designed around what is stable and cheap on Mochimo:
 - [x] **M1 — Haiku Codec**: extraction, decode, grammar, compose, golden-vector tests
 - [x] **M2 — Server**: Mesh API poller (skip pseudoblocks/neogenesis), Aeon clock,
       anthology + voting API, tag-login via memo micro-TX
-- [ ] **M3 — Web PWA**: Haiku of the Block (live), the Forge, Anthology, Aeon seasons
+- [x] **M3 — Web PWA**: Haiku of the Block (live), the Forge, Anthology, Aeon seasons
 - [ ] **M4 — Rewards**: multi-destination payout tooling, on-chain verifiable receipts
 
 ## Credits & License

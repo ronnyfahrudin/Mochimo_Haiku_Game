@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#1e2528">
+<title>The Verse Keepers — Mochimo Haiku Game</title>
+<link rel="stylesheet" href="style.css">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+</head>
+<body data-season="spring">
+<div class="wrap">
+
+<header>
+  <svg class="mark" viewBox="0 0 100 100" aria-hidden="true">
+    <circle cx="50" cy="50" r="44" fill="none" stroke="#35e5a1" stroke-width="6"/>
+    <path d="M28 72 V38 q0 -8 8 -8 h28 q8 0 8 8 v34 M50 30 v42 M50 30 l8 -14 M22 72 h56"
+          fill="none" stroke="#35e5a1" stroke-width="6" stroke-linecap="round"/>
+  </svg>
+  <div class="title">the verse keepers<small>a mochimo haiku game</small></div>
+  <nav aria-label="views">
+    <button data-view="home" aria-current="true">now</button>
+    <button data-view="forge">forge</button>
+    <button data-view="anthology">anthology</button>
+  </nav>
+</header>
+
+<!-- ============ NOW ============ -->
+<section id="view-home">
+  <div class="home-hero">
+    <div class="ring-holder" title="256 blocks to each Neogenesis">
+      <svg id="aeon-ring" viewBox="0 0 208 208" role="img" aria-label="Aeon progress ring"></svg>
+      <div class="ring-center">
+        <div class="aeon-num" id="aeon-num">aeon —</div>
+        <div class="season-name" id="season-name">…</div>
+        <div class="to-neo" id="to-neo"></div>
+      </div>
+    </div>
+
+    <p class="block-label" id="block-label">listening to the chain…</p>
+    <div class="washi" id="washi">
+      <p class="verse" id="verse"><span class="caret">▌</span></p>
+    </div>
+    <p class="nonce-line" id="nonce-line"></p>
+  </div>
+</section>
+
+<!-- ============ FORGE ============ -->
+<section id="view-forge" hidden>
+  <h2>The Haiku Forge</h2>
+  <p class="sub">Compose from the network's own 256 words. The grammar you must
+     satisfy is the one the chain itself enforces — a finished poem is a valid
+     Mochimo mining nonce.</p>
+
+  <div class="panel">
+    <div class="frame-tabs">
+      <button id="tab-a" aria-current="true">verse I</button>
+      <button id="tab-b">verse II</button>
+    </div>
+    <div class="compose-strip" id="compose-strip">
+      <span class="hint">tap words below — tap a placed word to remove it and everything after</span>
+    </div>
+
+    <p class="bank-label" id="bank-label">words that may come next</p>
+    <div class="bank" id="bank"></div>
+
+    <div class="forge-actions">
+      <button class="btn" id="submit-btn" disabled>Submit to the anthology</button>
+      <button class="btn ghost" id="clear-btn">Clear</button>
+    </div>
+    <p class="badge" id="nonce-badge"></p>
+  </div>
+</section>
+
+<!-- ============ ANTHOLOGY ============ -->
+<section id="view-anthology" hidden>
+  <h2>Anthology of the Aeon</h2>
+  <p class="sub" id="anth-sub">Poems of this aeon. Voting closes at Neogenesis.</p>
+  <div class="panel" id="anthology-list"><p class="note">loading…</p></div>
+</section>
+
+<footer>
+  open source · <a href="https://github.com/ronnyfahrudin/Mochimo_Haiku_Game">github</a> ·
+  running on the <a href="https://mochimo.org">mochimo</a> post-quantum chain
+  · <span id="who"></span>
+</footer>
+</div>
+
+<!-- ============ LOGIN ============ -->
+<dialog id="login-dlg">
+  <h3>Sign in with your Mochimo tag</h3>
+  <p class="note">Your account tag is the 20-byte number that never changes
+     (shown in the Mochimo Wallet). No signature needed — WOTS+ keys are
+     one-time, so ownership is proven with a tiny deposit instead.</p>
+  <input type="text" id="tag-input" placeholder="0x… (40 hex characters)" spellcheck="false">
+  <div id="memo-step" hidden>
+    <p class="note" style="margin-top:12px">Send a micro-transaction (any amount)
+       to the game address with this exact reference/memo:</p>
+    <div class="memo-code" id="memo-code"></div>
+    <p class="note">Then press “I sent it”. Verification is only required for voting
+       and claiming rewards — you can forge poems right away.</p>
+  </div>
+  <div class="forge-actions">
+    <button class="btn" id="login-next">Continue</button>
+    <button class="btn ghost" id="login-close">Close</button>
+  </div>
+</dialog>
+
+<script src="codec-client.js"></script>
+<script src="app.js"></script>
+<script>
+if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');
+</script>
+</body>
+</html>
