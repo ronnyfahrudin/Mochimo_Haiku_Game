@@ -1,6 +1,6 @@
-/* The Verse Keepers — two worlds on one screen:
+/* The Haiku Keepers — two worlds on one screen:
    the CHAIN speaks in terminal mint monospace on charcoal;
-   the VERSE is set like ink on warm washi paper, in serif.
+   the POEM is set like ink on warm washi paper, in serif.
    Signature element: the Aeon Ring — 256 ticks, one per block,
    counting toward Neogenesis, tinted by the season. */
 
@@ -11,7 +11,7 @@
   --mint: #35e5a1;         /* the Mochimo mark's mint — chain truth only */
   --mint-dim: #1d8f66;
   --paper: #ece5d3;        /* washi — poetry lives here */
-  --paper-ink: #262019;    /* verse ink on washi */
+  --paper-ink: #262019;    /* poem ink on washi */
   --faded: #77848a;
   --line: #2e393e;
   --season: var(--mint);   /* re-tinted per aeon by JS */
@@ -87,13 +87,13 @@ nav button:focus-visible, button:focus-visible { outline: 2px solid var(--season
   font-size: 15px; color: #b23a2e; border: 1.5px solid #b23a2e;
   border-radius: 3px; padding: 2px 4px; opacity: .75; font-family: serif;
 }
-.washi .verse {
+.washi .poem-text {
   font-family: var(--serif); font-size: 26px; line-height: 1.5;
   white-space: pre-line; min-height: 3.2em; margin: 0;
 }
-.washi .verse .caret { color: #b23a2e; animation: blink 1s steps(1) infinite; }
+.washi .poem-text .caret { color: #b23a2e; animation: blink 1s steps(1) infinite; }
 @keyframes blink { 50% { opacity: 0; } }
-.washi.silent .verse { color: #8a8274; font-style: italic; font-size: 20px; }
+.washi.silent .poem-text { color: #8a8274; font-style: italic; font-size: 20px; }
 .nonce-line {
   font-family: var(--mono); font-size: 10.5px; color: var(--faded);
   word-break: break-all; margin: 14px auto 0; max-width: 480px;
@@ -198,9 +198,9 @@ footer { margin-top: 48px; border-top: 1px solid var(--line); padding-top: 14px;
 footer a { color: var(--mint-dim); }
 
 @media (max-width: 480px) {
-  .washi .verse { font-size: 21px; }
+  .washi .poem-text { font-size: 21px; }
   .ring-holder { width: 176px; height: 176px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .washi .verse .caret { animation: none; }
+  .washi .poem-text .caret { animation: none; }
 }

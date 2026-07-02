@@ -125,7 +125,7 @@ console.log('3. serving: static shell + /api/grammar over HTTP');
   const idxText = await idx.text();
   check('GET / serves the app shell', () => {
     assert(idx.status === 200 && idx.headers.get('content-type').includes('text/html'));
-    assert(idxText.includes('The Verse Keepers') || idxText.includes('verse keepers'));
+    assert(idxText.includes('The Haiku Keepers') || idxText.includes('haiku keepers'));
   });
   const css = await fetch(base + '/style.css');
   check('GET /style.css served with css mime', () =>
