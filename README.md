@@ -69,7 +69,7 @@ in both expansion text and grammar verdicts. 1,000 of those vectors ship in this
 regression fixtures.
 
 ```bash
-node codec/haiku.test.js   # runs the full suite
+npm test   # codec suite (18) + server suite (26), fully offline
 ```
 
 Example output of the codec on a generated nonce:
@@ -83,6 +83,38 @@ in ice
 drowned cranes
 entering
 ```
+
+
+## Running the Server (Milestone 2)
+
+Zero external dependencies — Node.js >= 22.5 only (built-in `node:sqlite`).
+
+```bash
+npm run start:mock   # offline demo: synthetic chain from golden vectors
+npm start            # live: polls https://api.mochimo.org every 10s
+npm run probe        # one-shot: print raw Mesh block + decoded haiku
+```
+
+Environment: `PORT` (default 8090), `MESH_URL`, `POLL_MS`, `DB_FILE`,
+and `GAME_TAG` — the game's own account tag that players send their
+verification micro-TX to (required for `/api/auth/check`).
+
+| Endpoint | Purpose |
+| --- | --- |
+| `GET /api/state` | Aeon clock + live *Haiku of the Block* |
+| `GET /api/wordbank` | 255-word Forge vocabulary with semantic features |
+| `POST /api/auth/start` `{tag}` | issues a memo code for the verification micro-TX |
+| `POST /api/auth/check` `{tag}` | scans chain for the memo deposit, verifies player |
+| `POST /api/haiku` `{tag, frames}` | Forge submission (consensus grammar enforced) |
+| `POST /api/vote` `{tag, submissionId}` | 5 votes/aeon, verified players, no self-votes |
+| `GET /api/anthology?aeon=N` | poems + vote counts |
+| `GET /api/leaderboard?aeon=N` | frozen ranks with payout memos `AEON-N-RANK-R` |
+
+**First live run:** the Mesh block nonce field mapping in
+`server/mesh.js#extractNonceHex` is written defensively against several
+metadata layouts; run `npm run probe` once to confirm it matches your Mesh
+version, and compare the printed haiku against the same block on
+[mochiscan.org](https://mochiscan.org).
 
 ## Wallet Login & Rewards (design)
 
@@ -98,7 +130,7 @@ So login is designed around what is stable and cheap on Mochimo:
 ## Roadmap
 
 - [x] **M1 — Haiku Codec**: extraction, decode, grammar, compose, golden-vector tests
-- [ ] **M2 — Server**: Mesh API poller (skip pseudoblocks/neogenesis), Aeon clock,
+- [x] **M2 — Server**: Mesh API poller (skip pseudoblocks/neogenesis), Aeon clock,
       anthology + voting API, tag-login via memo micro-TX
 - [ ] **M3 — Web PWA**: Haiku of the Block (live), the Forge, Anthology, Aeon seasons
 - [ ] **M4 — Rewards**: multi-destination payout tooling, on-chain verifiable receipts
