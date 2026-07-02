@@ -1,4 +1,4 @@
-# Game Design — The Verse Keepers (MVP: Haiku Forge)
+# Game Design — The Haiku Keepers (MVP: Haiku Forge)
 
 ## Vision
 A calm, poetic word game that onboards non-crypto players into Mochimo.
@@ -19,7 +19,7 @@ palette each Aeon (spring/summer/autumn/winter, 4 Aeons ≈ 1 day).
    their haiku's 32-byte nonce hex as a badge ("this poem could mine a block").
 3. Submit to the **Anthology of the Aeon** (max 3 submissions per account per Aeon).
 4. **Vote** (verified accounts only, 5 votes per Aeon, no self-votes).
-5. At Neogenesis: leaderboard freezes; top N verses earn nanoMochi; one
+5. At Neogenesis: leaderboard freezes; top N poems earn nanoMochi; one
    multi-destination payout TX with memo `AEON-<n>-RANK-<r>`; anthology archived.
 
 ## Accounts & anti-abuse
@@ -34,6 +34,6 @@ palette each Aeon (spring/summer/autumn/winter, 4 Aeons ≈ 1 day).
 - Payout fee for 256 recipients = 128,000 nanoMochi total — negligible.
 
 ## Later modes (post-MVP)
-- Verse Divination: guess masked words of the live block haiku (real-time).
+- Haiku Divination: guess masked words of the live block haiku (real-time).
 - Block Watch: light predictions on next-block properties.
 - Weekly "Grand Anthology" compiled from Aeon winners; shareable art cards.
