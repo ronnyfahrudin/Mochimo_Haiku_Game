@@ -1,0 +1,9 @@
+{
+  "name": "The Verse Keepers — Mochimo Haiku Game",
+  "short_name": "Verse Keepers",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#14191c",
+  "theme_color": "#1e2528",
+  "icons": [{ "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }]
+}

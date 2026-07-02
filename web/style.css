@@ -1,0 +1,206 @@
+/* The Verse Keepers — two worlds on one screen:
+   the CHAIN speaks in terminal mint monospace on charcoal;
+   the VERSE is set like ink on warm washi paper, in serif.
+   Signature element: the Aeon Ring — 256 ticks, one per block,
+   counting toward Neogenesis, tinted by the season. */
+
+:root {
+  --ink: #14191c;          /* page ground, a step darker than the mark */
+  --panel: #1e2528;        /* the Mochimo mark's charcoal */
+  --panel-2: #242d31;
+  --mint: #35e5a1;         /* the Mochimo mark's mint — chain truth only */
+  --mint-dim: #1d8f66;
+  --paper: #ece5d3;        /* washi — poetry lives here */
+  --paper-ink: #262019;    /* verse ink on washi */
+  --faded: #77848a;
+  --line: #2e393e;
+  --season: var(--mint);   /* re-tinted per aeon by JS */
+  --serif: 'Iowan Old Style', 'Palatino Linotype', Palatino, 'Book Antiqua', Georgia, serif;
+  --mono: ui-monospace, 'Cascadia Mono', 'JetBrains Mono', Menlo, Consolas, monospace;
+  --sans: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  background: var(--ink);
+  color: #cfd8dc;
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.55;
+  min-height: 100vh;
+}
+body[data-season="spring"] { --season: #35e5a1; }
+body[data-season="summer"] { --season: #e0c94a; }
+body[data-season="autumn"] { --season: #e58a4a; }
+body[data-season="winter"] { --season: #4ab8e0; }
+
+.wrap { max-width: 680px; margin: 0 auto; padding: 0 20px 96px; }
+
+/* ---------- header ---------- */
+header {
+  display: flex; align-items: center; gap: 14px;
+  padding: 18px 0 14px; border-bottom: 1px solid var(--line);
+}
+.mark { width: 34px; height: 34px; flex: none; }
+.title { font-family: var(--mono); font-size: 15px; letter-spacing: .04em; color: var(--mint); }
+.title small { display: block; color: var(--faded); letter-spacing: .12em; font-size: 10px; text-transform: uppercase; }
+nav { margin-left: auto; display: flex; gap: 4px; }
+nav button {
+  background: none; border: 1px solid transparent; border-radius: 6px;
+  color: var(--faded); font-family: var(--mono); font-size: 13px;
+  padding: 7px 12px; cursor: pointer;
+}
+nav button[aria-current="true"] { color: var(--mint); border-color: var(--line); background: var(--panel); }
+nav button:focus-visible, button:focus-visible { outline: 2px solid var(--season); outline-offset: 2px; }
+
+/* ---------- home: aeon ring + haiku of the block ---------- */
+.home-hero { text-align: center; padding: 40px 0 8px; }
+.ring-holder { position: relative; width: 208px; height: 208px; margin: 0 auto; }
+.ring-holder svg { width: 100%; height: 100%; display: block; }
+.ring-tick { stroke: var(--line); stroke-width: 3; }
+.ring-tick.done { stroke: var(--season); }
+.ring-center {
+  position: absolute; inset: 0; display: grid; place-content: center; text-align: center;
+}
+.ring-center .season-name {
+  font-family: var(--serif); font-style: italic; font-size: 22px; color: var(--paper);
+}
+.ring-center .aeon-num { font-family: var(--mono); font-size: 11px; color: var(--faded); letter-spacing: .1em; }
+.ring-center .to-neo { font-family: var(--mono); font-size: 11px; color: var(--season); margin-top: 6px; }
+
+.block-label {
+  font-family: var(--mono); font-size: 12px; color: var(--faded);
+  letter-spacing: .14em; text-transform: uppercase; margin: 34px 0 0;
+}
+.block-label b { color: var(--mint); font-weight: 500; }
+
+/* the poem: ink on washi */
+.washi {
+  background: var(--paper); color: var(--paper-ink);
+  border-radius: 3px; margin: 14px auto 0; max-width: 480px;
+  padding: 34px 30px 30px; position: relative;
+  box-shadow: 0 1px 0 #0006, 0 12px 40px -18px #000;
+}
+.washi::after {   /* hanko seal */
+  content: '詩'; position: absolute; right: 16px; bottom: 12px;
+  font-size: 15px; color: #b23a2e; border: 1.5px solid #b23a2e;
+  border-radius: 3px; padding: 2px 4px; opacity: .75; font-family: serif;
+}
+.washi .verse {
+  font-family: var(--serif); font-size: 26px; line-height: 1.5;
+  white-space: pre-line; min-height: 3.2em; margin: 0;
+}
+.washi .verse .caret { color: #b23a2e; animation: blink 1s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+.washi.silent .verse { color: #8a8274; font-style: italic; font-size: 20px; }
+.nonce-line {
+  font-family: var(--mono); font-size: 10.5px; color: var(--faded);
+  word-break: break-all; margin: 14px auto 0; max-width: 480px;
+}
+.nonce-line span { color: var(--mint-dim); }
+
+/* ---------- shared panels ---------- */
+h2 {
+  font-family: var(--serif); font-weight: 500; font-size: 24px; color: var(--paper);
+  margin: 36px 0 6px;
+}
+.sub { color: var(--faded); font-size: 14px; margin: 0 0 18px; }
+.panel {
+  background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
+  padding: 18px; margin: 14px 0;
+}
+
+/* ---------- forge ---------- */
+.frame-tabs { display: flex; gap: 6px; margin-bottom: 12px; }
+.frame-tabs button {
+  flex: 1; background: var(--panel-2); border: 1px solid var(--line); border-radius: 8px;
+  color: var(--faded); font-family: var(--mono); font-size: 13px; padding: 8px; cursor: pointer;
+}
+.frame-tabs button[aria-current="true"] { color: var(--mint); border-color: var(--mint-dim); }
+.frame-tabs button.ok::after { content: ' ✓'; color: var(--mint); }
+
+.compose-strip {
+  min-height: 46px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center;
+  background: var(--ink); border: 1px dashed var(--line); border-radius: 8px; padding: 8px;
+}
+.chip {
+  font-family: var(--serif); font-size: 16px; color: var(--paper);
+  background: var(--panel-2); border: 1px solid var(--line); border-radius: 6px;
+  padding: 4px 10px; cursor: pointer;
+}
+.chip.nl { color: var(--faded); font-family: var(--mono); font-size: 13px; }
+.compose-strip .hint { color: var(--faded); font-size: 13px; font-style: italic; }
+
+.bank-label { font-family: var(--mono); font-size: 11px; color: var(--faded);
+  letter-spacing: .12em; text-transform: uppercase; margin: 16px 0 8px; }
+.bank { display: flex; flex-wrap: wrap; gap: 6px; max-height: 240px; overflow-y: auto; }
+.bank button {
+  font-family: var(--serif); font-size: 15px; color: #cfd8dc;
+  background: var(--panel-2); border: 1px solid var(--line); border-radius: 6px;
+  padding: 4px 10px; cursor: pointer;
+}
+.bank button:hover { border-color: var(--season); color: var(--paper); }
+.bank button.nl { font-family: var(--mono); font-size: 12px; color: var(--faded); }
+.bank button.end { border-color: var(--mint-dim); color: var(--mint); font-family: var(--mono); font-size: 12px; }
+
+.forge-actions { display: flex; gap: 8px; margin-top: 16px; align-items: center; flex-wrap: wrap; }
+.btn {
+  background: var(--mint); color: #06281b; border: 0; border-radius: 8px;
+  font-family: var(--mono); font-size: 14px; font-weight: 600;
+  padding: 10px 18px; cursor: pointer;
+}
+.btn[disabled] { background: var(--panel-2); color: var(--faded); cursor: not-allowed; }
+.btn.ghost { background: none; border: 1px solid var(--line); color: var(--faded); font-weight: 400; }
+.badge {
+  font-family: var(--mono); font-size: 10.5px; color: var(--mint-dim);
+  word-break: break-all; margin-top: 12px;
+}
+.badge b { color: var(--mint); font-weight: 500; }
+
+/* ---------- anthology ---------- */
+.entry { display: flex; gap: 14px; align-items: flex-start; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.entry:last-child { border-bottom: 0; }
+.entry .votes { text-align: center; min-width: 44px; }
+.entry .votes b { display: block; font-family: var(--mono); font-size: 18px; color: var(--paper); }
+.entry .votes button {
+  background: none; border: 1px solid var(--line); border-radius: 6px; color: var(--season);
+  cursor: pointer; font-size: 13px; padding: 3px 8px; margin-top: 4px;
+}
+.entry .poem { font-family: var(--serif); font-size: 17px; white-space: pre-line; color: var(--paper); margin: 0; }
+.entry .by { font-family: var(--mono); font-size: 10.5px; color: var(--faded); margin-top: 6px; }
+
+/* ---------- login / dialogs ---------- */
+dialog {
+  background: var(--panel); color: #cfd8dc; border: 1px solid var(--line);
+  border-radius: 12px; max-width: 420px; width: calc(100% - 40px); padding: 22px;
+}
+dialog::backdrop { background: #000a; }
+dialog h3 { font-family: var(--serif); color: var(--paper); margin: 0 0 10px; }
+input[type=text] {
+  width: 100%; background: var(--ink); border: 1px solid var(--line); border-radius: 8px;
+  color: var(--mint); font-family: var(--mono); font-size: 13px; padding: 10px;
+}
+.memo-code {
+  font-family: var(--mono); font-size: 18px; color: var(--mint); text-align: center;
+  background: var(--ink); border-radius: 8px; padding: 12px; margin: 12px 0; letter-spacing: .08em;
+}
+.note { font-size: 13px; color: var(--faded); }
+
+.toast {
+  position: fixed; left: 50%; bottom: 22px; transform: translateX(-50%);
+  background: var(--panel); border: 1px solid var(--mint-dim); border-radius: 8px;
+  color: var(--paper); font-size: 14px; padding: 10px 16px; z-index: 10;
+}
+
+footer { margin-top: 48px; border-top: 1px solid var(--line); padding-top: 14px;
+  font-family: var(--mono); font-size: 11px; color: var(--faded); }
+footer a { color: var(--mint-dim); }
+
+@media (max-width: 480px) {
+  .washi .verse { font-size: 21px; }
+  .ring-holder { width: 176px; height: 176px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .washi .verse .caret { animation: none; }
+}
