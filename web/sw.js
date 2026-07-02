@@ -1,6 +1,6 @@
 /* Minimal service worker: cache the app shell; API always network-first. */
-const SHELL = ['.', 'index.html', 'style.css', 'app.js', 'codec-client.js', 'manifest.webmanifest', 'icon.svg', 'assets/mochimo-logo.jpg'];
-const VER = 'vk-shell-v2';
+const SHELL = ['.', 'index.html', 'style.css', 'app.js', 'codec-client.js', 'i18n.js', 'manifest.webmanifest', 'icon.svg', 'assets/mochimo-logo.jpg'];
+const VER = 'vk-shell-v3';
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(VER).then(c => c.addAll(SHELL)).then(() => self.skipWaiting()));
 });

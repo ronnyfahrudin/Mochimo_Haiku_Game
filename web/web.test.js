@@ -114,6 +114,36 @@ check('empty prefix offers words and cannot end', () => {
   assert(next.size > 0 && !canEnd);
 });
 
+console.log('2b. i18n locales');
+{
+  const i18n = require('./i18n');
+  const base = Object.keys(i18n.T.en).sort();
+  check('4 locales registered', () => assert(i18n.LOCALES.length === 4));
+  for (const code of ['id', 'zh', 'ja']) {
+    check(`locale ${code}: exact key parity with en`, () =>
+      assert.deepStrictEqual(Object.keys(i18n.T[code]).sort(), base));
+  }
+  check('placeholders survive every locale', () => {
+    for (const code of ['en', 'id', 'zh', 'ja']) {
+      for (const key of base) {
+        const en = i18n.T.en[key];
+        const loc = i18n.T[code][key];
+        const ph = (en.match(/\{\d\}/g) || []).sort().join();
+        const lph = (loc.match(/\{\d\}/g) || []).sort().join();
+        assert.strictEqual(lph, ph, `${code}.${key}`);
+      }
+    }
+  });
+  check('t() interpolates and falls back', () => {
+    i18n.setLocale('id');
+    assert(i18n.t('to_neo', 7) === '7 blok menuju neogenesis');
+    i18n.setLocale('zh');
+    assert(i18n.t('voted', 3).includes('3'));
+    i18n.setLocale('en');
+    assert(i18n.t('nope_key') === 'nope_key');
+  });
+}
+
 console.log('3. serving: static shell + /api/grammar over HTTP');
 (async () => {
   const { server, pollOnce } = require('../server/index');

@@ -11,12 +11,16 @@ let verified = false;
 let frames = { a: [], b: [] };    // Forge composition (dict indices)
 let active = 'a';
 let lastShownBlock = null;
+const t = I18N.t;
+I18N.setLocale(localStorage.getItem('vk_lang') || (navigator.language || 'en').slice(0, 2));
 
 /* ================= boot ================= */
 
 async function boot() {
   const grammar = await getJSON('/api/grammar');
   HaikuClient.init(grammar);
+  buildLangPicker();
+  applyStatic();
   buildRing();
   renderForge();
   wireNav();
@@ -36,6 +40,30 @@ async function postJSON(p, body) {
   return j;
 }
 
+/* ================= i18n ================= */
+
+function buildLangPicker() {
+  const sel = $('lang-sel');
+  sel.innerHTML = I18N.LOCALES.map(l => `<option value="${l.code}">${l.label}</option>`).join('');
+  sel.value = I18N.getLocale();
+  sel.onchange = () => {
+    I18N.setLocale(sel.value);
+    localStorage.setItem('vk_lang', sel.value);
+    applyStatic();
+    renderForge();
+    if (state) rerenderState();
+    if (currentView === 'anthology') loadAnthology();
+    updateWho();
+  };
+}
+
+function applyStatic() {
+  document.documentElement.lang = I18N.getLocale();
+  document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
+  $('tag-input').placeholder = t('tag_ph');
+  $('foot-chain').innerHTML = t('foot_chain', '<a href="https://mochimo.org">mochimo</a>');
+}
+
 /* ================= NOW view ================= */
 
 function buildRing() {
@@ -53,27 +81,33 @@ function buildRing() {
 
 async function refreshState() {
   try { state = await getJSON('/api/state'); } catch { return; }
+  rerenderState();
+  if (currentView === 'anthology') loadAnthology();
+}
+
+function rerenderState() {
   const c = state.clock;
   document.body.dataset.season = c.season;
-  $('aeon-num').textContent = 'aeon ' + c.aeon;
-  $('season-name').textContent = c.season;
-  $('to-neo').textContent = c.blocksToNeogenesis + ' blocks to neogenesis';
-  document.querySelectorAll('.ring-tick').forEach(t =>
-    t.classList.toggle('done', Number(t.dataset.i) < c.blockInAeon));
+  $('aeon-num').textContent = t('aeon') + ' ' + c.aeon;
+  $('season-name').textContent = t('season_' + c.season);
+  $('to-neo').textContent = t('to_neo', c.blocksToNeogenesis);
+  document.querySelectorAll('.ring-tick').forEach(el =>
+    el.classList.toggle('done', Number(el.dataset.i) < c.blockInAeon));
 
   const h = state.haikuOfTheBlock;
   if (h && h.block !== lastShownBlock) {
     lastShownBlock = h.block;
-    $('block-label').innerHTML = `haiku of block <b>#${h.block}</b>`;
+    $('block-label').innerHTML = `${t('haiku_of_block')} <b>#${h.block}</b>`;
     $('washi').classList.remove('silent');
     typewrite($('poem-text'), h.text);
-    $('nonce-line').innerHTML = `nonce <span>${h.nonce}</span>`;
-  } else if (!h) {
-    $('block-label').textContent = 'waiting for a standard block…';
+    $('nonce-line').innerHTML = `${t('nonce')} <span>${h.nonce}</span>`;
+  } else if (h) {
+    $('block-label').innerHTML = `${t('haiku_of_block')} <b>#${h.block}</b>`;
+  } else {
+    $('block-label').textContent = t('waiting');
     $('washi').classList.add('silent');
-    $('poem-text').textContent = c.isNeogenesis ? 'the world is reborn' : 'the network is silent';
+    $('poem-text').textContent = c.isNeogenesis ? t('reborn') : t('silent');
   }
-  if (currentView === 'anthology') loadAnthology();
 }
 
 let twTimer = null;
@@ -126,7 +160,8 @@ function renderForge() {
   const strip = $('compose-strip');
   strip.innerHTML = '';
   if (!cur.length) {
-    strip.innerHTML = '<span class="hint">tap words below — tap a placed word to remove it and everything after</span>';
+    strip.innerHTML = '<span class="hint"></span>';
+    strip.querySelector('.hint').textContent = t('strip_hint');
   } else {
     cur.forEach((w, i) => {
       const b = document.createElement('button');
@@ -151,21 +186,18 @@ function renderForge() {
     bank.appendChild(b);
   }
   $('bank-label').textContent = cur.length === 0
-    ? 'words that may open the haiku'
-    : (words.length ? 'words that may come next' : (canEnd ? 'the haiku is complete' : ''));
+    ? t('bank_open')
+    : (words.length ? t('bank_next') : (canEnd ? t('bank_done') : ''));
 
   // nonce badge + submit availability
   const okA = HaikuClient.isValidFrame(frames.a) && frames.a.length > 0;
   const okB = HaikuClient.isValidFrame(frames.b) && frames.b.length > 0;
   if (okA && okB) {
     const hex = HaikuClient.nonceHex(frames.a, frames.b);
-    $('nonce-badge').innerHTML =
-      `✓ this poem is a structurally valid mining nonce<br><b>${hex}</b>`;
+    $('nonce-badge').innerHTML = `${t('badge_valid')}<br><b>${hex}</b>`;
     $('submit-btn').disabled = false;
   } else {
-    $('nonce-badge').textContent = okA || okB
-      ? 'one haiku complete — finish the other to forge the nonce'
-      : '';
+    $('nonce-badge').textContent = okA || okB ? t('badge_half') : '';
     $('submit-btn').disabled = true;
   }
 }
@@ -174,7 +206,7 @@ async function submitPoem() {
   if (!tag) { openLogin(); return; }
   try {
     const r = await postJSON('/api/haiku', { tag, frames });
-    toast('Submitted to aeon ' + r.aeon + ' — good luck, Keeper.');
+    toast(t('submitted', r.aeon));
     frames = { a: [], b: [] };
     renderForge();
     showView('anthology');
@@ -188,11 +220,11 @@ async function submitPoem() {
 
 async function loadAnthology() {
   const j = await getJSON('/api/anthology');
-  $('anth-sub').textContent =
-    `Aeon ${j.aeon} — voting closes at Neogenesis. Verified keepers get 5 votes.`;
+  $('anth-sub').textContent = t('anth_sub', j.aeon);
   const el = $('anthology-list');
   if (!j.entries.length) {
-    el.innerHTML = '<p class="note">No poems yet this aeon. The Forge awaits.</p>';
+    el.innerHTML = '<p class="note"></p>';
+    el.querySelector('.note').textContent = t('anth_empty');
     return;
   }
   el.innerHTML = '';
@@ -203,11 +235,11 @@ async function loadAnthology() {
       <div class="votes"><b>${e.votes}</b></div>
       <div>
         <p class="poem"></p>
-        <p class="by">by ${short(e.tag)} · nonce ${e.nonce_hex.slice(0, 12)}…</p>
+        <p class="by">${t('by')} ${short(e.tag)} · ${t('nonce')} ${e.nonce_hex.slice(0, 12)}…</p>
       </div>`;
     row.querySelector('.poem').textContent = e.text;
     const vb = document.createElement('button');
-    vb.textContent = '✦ vote';
+    vb.textContent = t('vote');
     vb.onclick = () => vote(e.id);
     row.querySelector('.votes').appendChild(vb);
     el.appendChild(row);
@@ -218,7 +250,7 @@ async function vote(id) {
   if (!tag) { openLogin(); return; }
   try {
     const r = await postJSON('/api/vote', { tag, submissionId: id });
-    toast('Voted. ' + r.votesLeft + ' votes left this aeon.');
+    toast(t('voted', r.votesLeft));
     loadAnthology();
   } catch (e) { toast(e.message); }
 }
@@ -233,7 +265,7 @@ function wireLogin() {
 function openLogin() {
   $('tag-input').value = tag || '';
   $('memo-step').hidden = true;
-  $('login-next').textContent = 'Continue';
+  $('login-next').textContent = t('continue');
   $('login-dlg').showModal();
 }
 async function loginNext() {
@@ -242,22 +274,22 @@ async function loginNext() {
     try {
       const r = await postJSON('/api/auth/start', { tag: t });
       tag = t; localStorage.setItem('vk_tag', tag); updateWho();
-      if (r.verified) { verified = true; toast('Welcome back, verified Keeper.'); $('login-dlg').close(); return; }
+      if (r.verified) { verified = true; toast(t('welcome_back')); $('login-dlg').close(); return; }
       $('memo-code').textContent = r.memo;
       $('memo-step').hidden = false;
-      $('login-next').textContent = 'I sent it — check now';
+      $('login-next').textContent = t('sent_check');
     } catch (e) { toast(e.message); }
   } else {
     try {
       const r = await postJSON('/api/auth/check', { tag });
-      if (r.verified) { verified = true; toast('Verified. Your votes are unlocked.'); $('login-dlg').close(); }
-      else toast('Not seen on-chain yet — give it a block or two.');
+      if (r.verified) { verified = true; toast(t('verified_ok')); $('login-dlg').close(); }
+      else toast(t('not_seen'));
     } catch (e) { toast(e.message); }
   }
   updateWho();
 }
 function updateWho() {
-  $('who').textContent = tag ? `keeper ${short(tag)}` : 'sign in';
+  $('who').textContent = tag ? `${t('keeper')} ${short(tag)}` : t('sign_in');
   $('who').style.cursor = 'pointer';
 }
 function short(t) { return t.slice(0, 6) + '…' + t.slice(-4); }
