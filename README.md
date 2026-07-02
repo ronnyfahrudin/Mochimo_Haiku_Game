@@ -69,7 +69,7 @@ in both expansion text and grammar verdicts. 1,000 of those vectors ship in this
 regression fixtures.
 
 ```bash
-npm test   # codec (18) + server (26) + web (13) suites, fully offline
+npm test   # codec + server + web + rewards suites, fully offline
 ```
 
 Example output of the codec on a generated nonce:
@@ -139,6 +139,41 @@ The interface is localized in **English, Bahasa Indonesia, 简体中文, and 日
 (switcher in the header, remembered per device). The 256-word haiku vocabulary
 itself stays in English — it is the network's consensus nonce dictionary.
 
+
+## How Winners Are Determined & Paid (Milestone 4)
+
+When an aeon's Neogenesis block arrives, its anthology **freezes** — late votes
+are rejected. Final ranking: most votes wins; ties go to the earlier submission
+(rewarding originality over last-minute timing).
+
+Rewards are planned with the payout CLI — which **never touches keys**:
+
+```bash
+npm run payout -- --aeon 3549            # plan + write files
+npm run payout -- --aeon 3549 --dry-run  # print only
+```
+
+It builds a single Mochimo **multi-destination transaction** plan (up to 256
+recipients, 500 nMCM network fee per destination) and writes three artifacts to
+`server/data/payouts/`:
+
+- `aeon-N.json` — auditable manifest (ranks, tags, amounts, memos, totals)
+- `aeon-N.csv` — for spreadsheet review / wallet import
+- `aeon-N.rosetta.json` — Rosetta Construction operations for
+  [mochimo-mesh](https://github.com/NickP005/mochimo-mesh) `/construction/*`
+
+Signing happens **wallet-side only**. Each destination carries its rank memo
+(`AEON-3549-RANK-001`), so anyone can audit every prize on-chain by matching
+memos against the archived anthology.
+
+Eligibility: only **verified** tags are paid — ownership must have been proven
+by the login micro-TX. Unverified winners are listed under `skipped` in the
+manifest (funds are never sent to a tag nobody has proven they control).
+
+Default prize schedule (fully tunable in `server/rewards.js`): rank 1 → 5 MCM,
+rank 2 → 3, rank 3 → 2, ranks 4–10 → 1, ranks 11–50 → 0.1 (21 MCM per aeon
++ dust-level fees).
+
 ## Wallet Login & Rewards (design)
 
 Mochimo uses WOTS+ **one-time** signatures — signing a login challenge would burn a key.
@@ -156,7 +191,7 @@ So login is designed around what is stable and cheap on Mochimo:
 - [x] **M2 — Server**: Mesh API poller (skip pseudoblocks/neogenesis), Aeon clock,
       anthology + voting API, tag-login via memo micro-TX
 - [x] **M3 — Web PWA**: Haiku of the Block (live), the Forge, Anthology, Aeon seasons
-- [ ] **M4 — Rewards**: multi-destination payout tooling, on-chain verifiable receipts
+- [x] **M4 — Rewards**: multi-destination payout tooling, on-chain verifiable receipts
 
 ## Credits & License
 
